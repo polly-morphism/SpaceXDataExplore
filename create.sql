@@ -32,7 +32,7 @@ CREATE TABLE Missions
   mission_id integer,
   payload_id integer,
   customer_id integer,
-  vehicle_type char(40)
+  vehicle_type char(40),
   mission_outcome char(20),
   failure_reason char(40),
   landing_type char(20),
@@ -49,12 +49,12 @@ ADD CONSTRAINT mission_pk
 
 
 ALTER TABLE Missions
-ADD CONSTRAINT payload_pk
+ADD CONSTRAINT payload_fk
   FOREIGN KEY (payload_id)
   REFERENCES Payloads (payload_id);
 
 
 ALTER TABLE Missions
-ADD CONSTRAINT customer_pk
+ADD CONSTRAINT customer_fk
   FOREIGN KEY (customer_id)
   REFERENCES Customers (customer_id);
