@@ -11,8 +11,6 @@ ALTER TABLE Customers
 ADD CONSTRAINT customer_pk 
     PRIMARY KEY (customer_id);
 
--- 
-
 
 CREATE TABLE Payloads
 (
@@ -26,32 +24,15 @@ ALTER TABLE Payloads
 ADD CONSTRAINT payload_pk 
     PRIMARY KEY (payload_id);
 
--- 
-
-
-
-CREATE TABLE Vehicles
-(
-  vehicle_id integer,
-  type char(40)
-);
-
-ALTER TABLE Vehicles
-ADD CONSTRAINT vehicle_pk 
-    PRIMARY KEY (vehicle_id);
-
--- 
-
-
 
 
 
 CREATE TABLE Missions
 (
   mission_id integer,
-  vehicle_id integer,
   payload_id integer,
   customer_id integer,
+  vehicle_type char(40)
   mission_outcome char(20),
   failure_reason char(40),
   landing_type char(20),
@@ -65,12 +46,6 @@ CREATE TABLE Missions
 ALTER TABLE Missions
 ADD CONSTRAINT mission_pk 
     PRIMARY KEY (mission_id);
-  
-
-ALTER TABLE Missions
-ADD CONSTRAINT vehicle_pk
-  FOREIGN KEY (vehicle_id)
-  REFERENCES Vehicles (vehicle_id);
 
 
 ALTER TABLE Missions
