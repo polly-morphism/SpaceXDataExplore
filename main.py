@@ -15,7 +15,6 @@ def execute_query_via_pd(query):
 
 def execute_query_via_cur(query):
     cursor.execute(query)
-    cursor.execute(query)
     data = pd.DataFrame(cursor.fetchall())
     return data
 
