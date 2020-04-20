@@ -57,11 +57,11 @@ cursor.execute(query3)
 result3 = cursor.fetchall()
 
 
-chart_studio.tools.set_credentials_file(username='pollymorphism', api_key='c7t1ak32dm')
+chart_studio.tools.set_credentials_file(username='pollymorphism', api_key='uIgsM6xLSnTFjhoHpOVz')
 
-home_team = list(map(lambda x: x[0], result1))
-matches = list(map(lambda x: x[1], result1))
-bar = go.Bar(x=home_team, y=matches, marker_color='lightsalmon', name="Кількість запусків")
+launch_count= list(map(lambda x: x[0], result1))
+customers = list(map(lambda x: x[1], result1))
+bar = go.Bar(x=customers, y=launch_count, marker_color='blue', name="Кількість запусків")
 layout = go.Layout(
     title='Кількість запусків',
     xaxis=dict(
@@ -87,13 +87,11 @@ fig = go.Figure(data=bar, layout=layout)
 launches = py.plot(fig, filename='launches')
 
 
-
-city = list(map(lambda x: x[0], result3))
-tournament = list(map(lambda x: x[1], result3))
-bar = go.Bar(x=city, y=tournament, marker_color='lightsalmon', name="Кількість запусків по рокам")
+count_lounches= list(map(lambda x: x[0], result3))
+year = list(map(lambda x: x[1], result3))
+bar = go.Bar(x=year, y=count_lounches, marker_color='red', name="Кількість запусків")
 layout = go.Layout(
-    title=
-'Кількість успішних запусків',
+    title='Кількість запусків',
     xaxis=dict(
         title='Рік',
         titlefont=dict(
@@ -103,7 +101,7 @@ layout = go.Layout(
         )
     ),
     yaxis=dict(
-        title='Запуск',
+        title='Запуски',
         rangemode='nonnegative',
         autorange=True,
         titlefont=dict(
@@ -114,50 +112,56 @@ layout = go.Layout(
     )
 )
 fig = go.Figure(data=bar, layout=layout)
-launches_by_year = py.plot(fig, filename='City and Tournament')
+launches_by_year = py.plot(fig, filename='launches_by_year')
+
+sum_lounches = 37
+
+count_lounches= list(map(lambda x: x[0], result2))
+company = list(map(lambda x: x[2], result2))
+
+sum_all = 37
 
 
-
-
-success_percent = float(result2[0][0])
-rest = 100 - neutral_percent
-pie = go.Pie(labels=['Neutral', 'NonNeutral'], values=[success_percent, rest],
-             textinfo='percent', title="Кількість успішних запусків")
+pie = go.Pie(labels=company, values=[i/sum_all for i in count_lounches],
+             textinfo='percent', title="Відсоток запусків по організаціям")
 success_percent = py.plot([pie], filename='Pie')
 
 
 def fileId_from_url(url):
     fileId = re.findall("~[A-z.]+/[0-9]+", url)[0][1:]
+    print(url)
     return fileId.replace('/', ':')
+
 my_dboard = dashboard.Dashboard()
-home_team_matches_id = fileId_from_url(home_team_matches)
-away_team_matches_id = fileId_from_url(away_team_matches)
-count_tournament_id = fileId_from_url(count_tournament)
-neutral_matches_percent_id = fileId_from_url(neutral_matches_percent)
+
+launches_id = fileId_from_url(launches)
+launches_by_year_id = fileId_from_url(launches_by_year)
+success_percent_id = fileId_from_url(success_percent)
+
 box1= {
     'type': 'box',
     'boxType': 'plot',
-    'fileId': launches,
-    'title': 'Кількість домашніх матчів'
+    'fileId': launches_id,
+    'title': 'Кількість запусків'
 }
 
 box2 = {
     'type': 'box',
     'boxType': 'plot',
-    'fileId': launches_by_year,
-    'title': 'Кількість виїздних матчів'
+    'fileId': launches_by_year_id,
+    'title': 'Кілість запусків по роках'
 }
 
 box3 = {
     'type': 'box',
     'boxType': 'plot',
-    'fileId': success_percent,
+    'fileId': success_percent_id,
     'title': 'Кількість прийнятих турнірів містом'
 }
 
 
-my_dboard.insert(box3, 'below', 1)
-my_dboard.insert(box2, 'right', 2)
-my_dboard.insert(box1, 'left', 3)
+my_dboard.insert(box1)
+my_dboard.insert(box2, 'below', 1)
+my_dboard.insert(box3, 'left', 2)
 
-py.dashboard_ops.upload(my_dboard, 'Lab_2')
+py.dashboard_ops.upload(my_dboard, 'Dashboard')
