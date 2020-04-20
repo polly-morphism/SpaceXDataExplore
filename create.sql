@@ -1,7 +1,7 @@
 CREATE TABLE Customers
 (
   customer_id integer,
-  name char(20),
+  name char(30),
   type char(20),
   country char(20) 
 
