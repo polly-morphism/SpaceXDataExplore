@@ -33,7 +33,7 @@ CREATE TABLE mission (
     launchdate                 DATE,
     launchsite                 VARCHAR2(128 CHAR),
     missionoutcome             CHAR(20 CHAR),
-    falurereason               CHAR(40 CHAR),
+    failurereason               CHAR(40 CHAR),
     landingoutcome             CHAR(50 CHAR),
     flightnumber               CHAR(5 CHAR),
     orbit                      CHAR(40 CHAR),
