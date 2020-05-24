@@ -1,3 +1,6 @@
+— task1
+
+
 CREATE VIEW missions_per_customer AS
     SELECT COUNT(*) AS num_of_missions, Customer.Name as customer_name
     from Mission
@@ -5,6 +8,9 @@ CREATE VIEW missions_per_customer AS
         ON Mission.Customer_CustomerId = Customer.CustomerId
     GROUP BY Customer.Name
     ORDER BY num_of_missions DESC;
+
+— task2
+
 
 CREATE VIEW missions_view AS
         SELECT COUNT(*) AS all_missions, Customer.Name as customer_name, Customer.CustomerId as cust_id
@@ -32,6 +38,11 @@ CREATE VIEW all_missions_success_percentage AS
     ON missions_view.cust_id =success_missions_view.cust_id;
 
 
+
+
+
+
+— task3
 CREATE VIEW num_of_missions_per_year AS
     SELECT COUNT(*) AS num_of_missions,  EXTRACT(YEAR FROM Mission.LaunchDate) as launch
     FROM Mission
