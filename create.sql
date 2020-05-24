@@ -28,10 +28,10 @@ CREATE TABLE landingtype (
 
 ALTER TABLE landingtype ADD CONSTRAINT landingtype_pk PRIMARY KEY ( landingtypeid );
 
-CREATE TABLE missions (
+CREATE TABLE mission (
     missionid                  INTEGER NOT NULL,
-    lounchdate                 DATE,
-    lounchsite                 VARCHAR2(128 CHAR),
+    launchdate                 DATE,
+    launchsite                 VARCHAR2(128 CHAR),
     missionoutcome             CHAR(20 CHAR),
     falurereason               CHAR(40 CHAR),
     landingoutcome             CHAR(50 CHAR),
@@ -43,7 +43,7 @@ CREATE TABLE missions (
     customer_customerid        INTEGER NOT NULL
 );
 
-ALTER TABLE missions ADD CONSTRAINT missions_pk PRIMARY KEY ( missionid );
+ALTER TABLE mission ADD CONSTRAINT mission_pk PRIMARY KEY ( missionid );
 
 CREATE TABLE payload (
     payloadid                  INTEGER NOT NULL,
@@ -78,23 +78,23 @@ ALTER TABLE customer
         REFERENCES customertype ( customertypeid )
             ON DELETE CASCADE;
 
-ALTER TABLE missions
-    ADD CONSTRAINT missions_customer_fk FOREIGN KEY ( customer_customerid )
+ALTER TABLE mission
+    ADD CONSTRAINT mission_customer_fk FOREIGN KEY ( customer_customerid )
         REFERENCES customer ( customerid )
             ON DELETE CASCADE;
 
-ALTER TABLE missions
-    ADD CONSTRAINT missions_landingtype_fk FOREIGN KEY ( landingtype_landingtypeid )
+ALTER TABLE mission
+    ADD CONSTRAINT mission_landingtype_fk FOREIGN KEY ( landingtype_landingtypeid )
         REFERENCES landingtype ( landingtypeid )
             ON DELETE CASCADE;
 
-ALTER TABLE missions
-    ADD CONSTRAINT missions_payload_fk FOREIGN KEY ( payload_payloadid )
+ALTER TABLE mission
+    ADD CONSTRAINT mission_payload_fk FOREIGN KEY ( payload_payloadid )
         REFERENCES payload ( payloadid )
             ON DELETE CASCADE;
 
-ALTER TABLE missions
-    ADD CONSTRAINT missions_vehicletype_fk FOREIGN KEY ( vehicletype_vehicletypeid )
+ALTER TABLE mission
+    ADD CONSTRAINT mission_vehicletype_fk FOREIGN KEY ( vehicletype_vehicletypeid )
         REFERENCES vehicletype ( vehicletypeid )
             ON DELETE CASCADE;
 
